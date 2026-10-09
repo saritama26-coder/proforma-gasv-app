@@ -13,13 +13,62 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#ffffff">
 <style>
-  html,body{margin:0;height:100%;background:#fff;overflow:hidden}
-  iframe{position:fixed;inset:0;width:100%;height:100%;border:0;
-         padding-top:env(safe-area-inset-top);box-sizing:border-box}
+  :root{color-scheme:light}
+  html,body{
+    margin:0;
+    width:100%;
+    min-height:100%;
+    background:#fff;
+    overflow:hidden;
+    overscroll-behavior:none;
+  }
+  /* Safari/iOS no debe tener el iframe como elemento fixed directo.
+     El contenedor administra el desplazamiento táctil de la app embebida. */
+  #gasv-frame-shell{
+    position:fixed;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:100vh;
+    height:100dvh;
+    overflow-x:hidden;
+    overflow-y:scroll;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-y:contain;
+    touch-action:pan-y pinch-zoom;
+    background:#fff;
+  }
+  #gasv-app-frame{
+    display:block;
+    position:relative;
+    top:auto;
+    left:auto;
+    width:100%;
+    height:100%;
+    min-height:100vh;
+    min-height:100dvh;
+    margin:0;
+    border:0;
+    padding-top:env(safe-area-inset-top);
+    padding-bottom:env(safe-area-inset-bottom);
+    box-sizing:border-box;
+    -webkit-overflow-scrolling:touch;
+    touch-action:pan-y pinch-zoom;
+    background:#fff;
+  }
 </style>
 </head>
 <body>
 
-<iframe src="https://script.google.com/macros/s/AKfycbyzRbE9NdF6rXeopcKUgv274F7NLlP1EBHxYNXMTfM3SgJJ3xWicPSpCaRV1mC5b7x6/exec" allow="clipboard-write" title="PROFORMA GASV"></iframe>
+<main id="gasv-frame-shell" aria-label="Aplicación PROFORMA GASV">
+  <iframe id="gasv-app-frame"
+    src="https://script.google.com/macros/s/AKfycbyzRbE9NdF6rXeopcKUgv274F7NLlP1EBHxYNXMTfM3SgJJ3xWicPSpCaRV1mC5b7x6/exec"
+    title="PROFORMA GASV"
+    scrolling="yes"
+    allow="clipboard-write; fullscreen; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"></iframe>
+</main>
 </body>
 </html>
